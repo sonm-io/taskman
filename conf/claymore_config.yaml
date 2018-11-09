@@ -1,5 +1,5 @@
 # cluster size
-numberofnodes: 2
+numberofnodes: 1
 #cluster name, bid's and tasks will use it
 tag: "TEST"
 
@@ -15,7 +15,7 @@ ets: 180
 task_start_timeout: 600
 
 # Template for task yaml
-template_file: "claymore.yaml"
+template_file: "claymore_task.yaml"
 
 # duration ("0h" for spot deals; "4h" (for example) for forward deals)
 duration: 0h

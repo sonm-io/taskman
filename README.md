@@ -14,8 +14,8 @@
 
 ## Configuration
 
-- Describe hardware requirements (see *config_task_claymore.yaml* for example);
-- Describe specification of your task you want to run in SONM (see *claymore.yaml* for example);
+- Describe hardware requirements (see *claymore_config.yaml* for example);
+- Describe specification of your task you want to run in SONM (see *claymore_task.yaml* for example);
 - Edit config.yaml to describe keystore settings and list of tasks for managing.
 
 You may use this bot to manage multiple different tasks. Task configs must have differemt tags.
