@@ -1,18 +1,25 @@
-#node config
-node_address: 'http://127.0.0.1:15031'
-ethereum:
-  key_path: "/etc/sonm/sonm-keystore/"
-  password: "sonm"
-
-# http server config
+# HTTP Server preferences
 http_server:
   run: true
   port: 8081
   user: "sonm"
   password: "sonm"
-#default timeout
-#timeout: 120
-#time since last heartbeat
+
+#SONM Node preferences
+# default endpoint for SONM Node REST API is 'http://127.0.0.1:15031'
+node_address: 'http://127.0.0.1:15031'
+
+# keystore location and password (default keystore location in Linux is "/etc/sonm/sonm-keystore/")
+ethereum:
+  key_path: "/etc/sonm/sonm-keystore/"
+  password: "changeMe"
+
+#default timeout for all requests to Node API is 60 seconds, you may customize this (optional).
+#timeout: 60
+
+#time since last heartbeat (in seconds) - drops the deal and restart particular node if its status stuck
 restart_timeout: 600
+
+# LIST OF TASKS to run
 tasks:
-  - claymore_config.yaml
+  - claymore_config.yam
