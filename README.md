@@ -32,3 +32,7 @@ If you want to change order price or hardware requirements, you may change confi
 
 Bot will close deals if task has failed to start (and add worker to blacklist).
 Run command `sonmcli blacklist purge` to clear blacklist.
+
+---
+
+Visit https://docs.sonm.com/guides/sonm-taskman for additional info.
