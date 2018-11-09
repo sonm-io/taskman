@@ -5,8 +5,8 @@ from os.path import join
 
 import yaml
 
-from source.utils import template_bid, template_task, convert_price, TaskStatus, dump_file
 from source.config import Config
+from source.utils import template_bid, template_task, convert_price, TaskStatus, dump_file
 
 
 class State(Enum):
@@ -290,6 +290,7 @@ class WorkNode:
 
     @property
     def as_table_item(self):
+        since_hb = int(time.time() - self.last_heartbeat) if self.status != State.WORK_COMPLETED else 0
         return TableItem(node=self.node_tag,
                          order_id=self.bid_id,
                          order_price=self.price,
@@ -297,7 +298,7 @@ class WorkNode:
                          task_id=self.task_id,
                          task_uptime=self.task_uptime,
                          node_status=self.status,
-                         since_hb=int(time.time() - self.last_heartbeat))
+                         since_hb=since_hb)
 
     @staticmethod
     def format_price(price_, readable=False):
@@ -305,7 +306,10 @@ class WorkNode:
 
 
 def get_css_class(node_state: State, since_hb: int):
-    if since_hb > restart_timeout() or node_state in [State.TASK_FAILED, State.TASK_FAILED_TO_START, State.TASK_BROKEN]:
+    if node_state in [State.WORK_COMPLETED]:
+        return "table-light"
+    elif since_hb > restart_timeout() or node_state in [State.TASK_FAILED, State.TASK_FAILED_TO_START,
+                                                        State.TASK_BROKEN]:
         return "table-danger"
     elif node_state in [State.DEAL_DISAPPEARED]:
         return "table-warning"
