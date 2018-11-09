@@ -1,4 +1,5 @@
 # HTTP Server preferences
+# statistics page available on http://localhost:8081 when bot is running.
 http_server:
   run: true
   port: 8081
