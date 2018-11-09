@@ -1,5 +1,17 @@
 # sonm-taskman
 
+SONM Task manager (taskman) is a bot for customer. It's main goal is to automate deal and task managing, and make it as easy as possible.
+
+Written with Python 3.7. Open-sourced and available for changes without any limitations.
+
+Concept:
+- describe hardware needs for your task(s), including preferred price and number of instances;
+- describe your task(s);
+- run the bot (in user session or in background);
+- relax and watch how the bot will take deals, start your task and perform task tracking.
+
+---
+
 ## Preparations
 
   `git clone git://github.com/sonm-io/taskman.git`
