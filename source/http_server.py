@@ -6,7 +6,6 @@ from functools import wraps
 
 from flask_table import Table, Col
 from flask import Flask, render_template, request, Response
-from flask_appconfig import AppConfig
 from flask_bootstrap import Bootstrap
 
 from source.utils import Nodes
@@ -59,9 +58,8 @@ class NodesTable(Table):
     since_hb = Col('HB')
 
 
-def create_app(configfile=None):
+def create_app():
     app = Flask(__name__)
-    AppConfig(app, configfile)
     Bootstrap(app)
 
     @app.route('/', methods=('GET', 'POST'))
