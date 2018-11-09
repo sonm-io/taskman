@@ -1,5 +1,3 @@
-#cluster settings
-
 #node config
 node_address: 'http://127.0.0.1:15031'
 ethereum:
