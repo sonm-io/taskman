@@ -1,0 +1,10 @@
+# Docker image settings.
+# Required.
+
+container:
+  image: "sonm/eth-claymore:latest"
+  env:
+    WALLET: "0x417c92fbd944b125a578848de44a4fd9132e0911"
+    POOL: "eth-eu1.nanopool.org:9999"
+    WORKER: "{{ node_tag }}"
+  commit_on_stop: false

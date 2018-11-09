@@ -1,0 +1,41 @@
+---
+version: 1
+disable_existing_loggers: False
+formatters:
+    simple:
+        format: "%(asctime)s - %(levelname)s - %(message)s"
+
+handlers:
+    console:
+        class: logging.StreamHandler
+        level: INFO
+        formatter: simple
+        stream: ext://sys.stdout
+
+    file_handler:
+        class: logging.handlers.TimedRotatingFileHandler
+        level: INFO
+        formatter: simple
+        filename: out/logs/monitor.log
+        when: midnight
+        backupCount: 20
+        encoding: utf8
+
+    http_file_handler:
+        class: logging.handlers.TimedRotatingFileHandler
+        level: INFO
+        formatter: simple
+        filename: out/logs/http_monitor.log
+        when: midnight
+        backupCount: 20
+        encoding: utf8
+
+loggers:
+    monitor:
+        level: INFO
+        handlers: [console, file_handler]
+        propagate: no
+    monitor_http:
+        level: INFO
+        handlers: [http_file_handler]
+        propagate: no

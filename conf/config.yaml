@@ -1,0 +1,20 @@
+#cluster settings
+
+#node config
+node_address: 'http://127.0.0.1:15031'
+ethereum:
+  key_path: "/etc/sonm/sonm-keystore/"
+  password: "sonm"
+
+# http server config
+http_server:
+  run: true
+  port: 8081
+  user: "sonm"
+  password: "sonm"
+#default timeout
+#timeout: 120
+#time since last heartbeat
+restart_timeout: 600
+tasks:
+  - claymore_config.yaml

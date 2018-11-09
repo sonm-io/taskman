@@ -1,0 +1,10 @@
+flask_table
+flask_appconfig
+flask_bootstrap
+pytimeparse
+tabulate
+apscheduler
+jinja2
+ruamel.yaml
+pathlib2
+git+git://github.com/sonm-io/sonm-pynode.git
