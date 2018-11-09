@@ -23,4 +23,4 @@ restart_timeout: 600
 
 # LIST OF TASKS to run
 tasks:
-  - claymore_config.yam
+  - claymore_config.yaml
