@@ -4,12 +4,6 @@
 
   `git clone git://github.com/sonm-io/taskman.git`
   
-**Mac OS X:**  
-  
-  `pip3.7 install -r requirements.txt`
-
-**Linux:**
-  
   `pip3.7 install -r requirements.txt`
 
 ## Configuration
@@ -30,9 +24,11 @@ When deal appears, it will start task and will track it.
 
 You may see bot stats at http://localhost:8081 (you may change default port in config).
 
-Bot logs are in *monitor.log*.
+Bot logs are in *./out/logs/monitor.log*.
 
-If you want to change order price, you may change config and run `sonmcli order purge`.
+Bot retrieve task logs on task fail or successfull finish. Logs are in *./out* folder.
 
-Bot will close deals if task has failed to start.
+If you want to change order price or hardware requirements, you may change config and run `sonmcli order purge`.
+
+Bot will close deals if task has failed to start (and add worker to blacklist).
 Run command `sonmcli blacklist purge` to clear blacklist.
