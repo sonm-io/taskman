@@ -75,7 +75,11 @@ class Config(object):
                                          "sysbenchmulti", "netdownload", "netupload", "overlay", "incoming",
                                          "gpucount", "gpumem", "ethhashrate"], task_config)
             temp_bids[task_config["tag"]] = template_bid(task_config)
+            nodes_to_exclude = [int(n) for n in
+                                task_config["nodes_to_exclude"].split(',')] if "nodes_to_exclude" in task_config else []
             for num in range(1, task_config["numberofnodes"] + 1):
+                if num in nodes_to_exclude:
+                    continue
                 task_config["counterparty"] = validate_eth_addr(task_config["counterparty"])
                 ntag = "{}_{}".format(task_config["tag"], num)
                 temp_node_configs[ntag] = task_config

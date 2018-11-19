@@ -1,5 +1,6 @@
 # cluster size
-numberofnodes: 1
+numberofnodes: 10
+nodes_to_exclude: 2,3,4,5,6,7,8,9,10
 #cluster name, bid's and tasks will use it
 tag: "TEST"
 
