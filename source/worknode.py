@@ -222,29 +222,26 @@ class WorkNode:
         while self.KEEP_WORK and self.status != State.WORK_COMPLETED:
             if int(time.time() - self.last_heartbeat) > restart_timeout():
                 self.reset_to_start()
-            if self.status == State.START or self.status == State.CREATE_ORDER:
+            if self.status in [State.START, State.CREATE_ORDER]:
                 self.create_order()
                 sleep_time = 60
-            elif self.status == State.AWAITING_DEAL:
+            elif self.status in [State.AWAITING_DEAL]:
                 sleep_time = self.check_order()
-            elif self.status == State.DEAL_OPENED:
+            elif self.status in [State.DEAL_OPENED]:
                 self.start_task()
                 sleep_time = 60
-            elif self.status == State.DEAL_DISAPPEARED:
+            elif self.status in [State.DEAL_DISAPPEARED]:
                 self.status = State.CREATE_ORDER
                 sleep_time = 1
-            elif self.status == State.TASK_RUNNING:
+            elif self.status in [State.TASK_RUNNING]:
                 sleep_time = self.check_task_status()
-            elif self.status == State.TASK_FAILED_TO_START:
+            elif self.status in [State.TASK_FAILED_TO_START]:
                 self.close_deal(State.CREATE_ORDER, blacklist=True)
                 sleep_time = 1
-            elif self.status == State.TASK_FAILED:
+            elif self.status in [State.TASK_FAILED, State.TASK_BROKEN]:
                 self.close_deal(State.CREATE_ORDER)
                 sleep_time = 1
-            elif self.status == State.TASK_BROKEN:
-                self.close_deal(State.CREATE_ORDER)
-                sleep_time = 1
-            elif self.status == State.TASK_FINISHED:
+            elif self.status in [State.TASK_FINISHED]:
                 self.close_deal(State.WORK_COMPLETED)
                 sleep_time = 1
             self.wait_sleep(sleep_time)

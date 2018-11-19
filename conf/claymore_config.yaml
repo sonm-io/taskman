@@ -1,6 +1,6 @@
 # cluster size
-numberofnodes: 10
-nodes_to_exclude: 2,3,4,5,6,7,8,9,10
+numberofnodes: 1
+#nodes_to_exclude: 1,2,3,4,5,6,7,8,9
 #cluster name, bid's and tasks will use it
 tag: "TEST"
 
@@ -26,29 +26,31 @@ counterparty: ""
 # Identity level of the counterparty. Can be "anonymous", "registered", "identified" and "professional".
 identity: "anonymous"
 
-# MB, integers only
-ramsize: 2000
-# GB, integers only
-storagesize: 1
-#number of cores, integers only
-cpucores: 1
-sysbenchsingle: 500
-sysbenchmulti: 1000
-# Mbits, integers only
-netdownload: 10
-# Mbits, integers only
-netupload: 10
-
-#network settings
-# Indicates whether overlay networking is required, boolean only
-overlay: false
-# Indicates whether inbound connections are required and public IP should be present on worker, boolean only
-incoming: false
-
-#gpu config (optional). If not required, set gpucount: "0"
-#number of units
-gpucount: 1
-# GPU unit RAM,MB, integers only
-gpumem: 2900
-# MH/s, integers only
-ethhashrate: 0
+resources:
+  # Network settings
+  network:
+    # Indicates whether overlay networking is required, boolean only
+    overlay: false
+    outbound: true
+    # Indicates whether inbound connections are required and public IP should be present on worker, boolean only
+    incoming: false
+  # Other benchmarks
+  benchmarks:
+    # MB, integers only
+    ram-size: 2000
+    # GB, integers only
+    storage-size: 1
+    #number of cores, integers only
+    cpu-cores: 1
+    cpu-sysbench-single: 500
+    cpu-sysbench-multi: 1000
+    # Mbits, integers only
+    net-download: 10
+    # Mbits, integers only
+    net-upload: 10
+    # GPU unit RAM,MB, integers only
+    gpu-count: 1
+    # GPU unit RAM,MB, integers only
+    gpu-mem: 2900
+    # MH/s, integers only
+    gpu-eth-hashrate: 0

@@ -12,8 +12,8 @@ node_address: 'http://127.0.0.1:15031'
 
 # keystore location and password (default keystore location in Linux is "/etc/sonm/sonm-keystore/")
 ethereum:
-  key_path: "/etc/sonm/sonm-keystore/"
-  password: "changeMe"
+  key_path: "/Users/abefimov/autobot-keystore"
+  password: "11111111"
 
 #default timeout for all requests to Node API is 60 seconds, you may customize this (optional).
 #timeout: 60
