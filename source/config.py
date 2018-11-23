@@ -2,8 +2,7 @@ import json
 import os
 from os.path import join
 
-from pathlib2 import Path
-from ruamel.yaml import YAML
+import yaml
 
 from source.utils import logger, validate_eth_addr, template_bid
 
@@ -71,9 +70,7 @@ class Config(object):
         for task_config in loaded_tasks:
             Config.validate_config_keys(["numberofnodes", "tag", "price_coefficient", "max_price", "ets",
                                          "task_start_timeout", "template_file", "duration", "counterparty",
-                                         "identity", "ramsize", "storagesize", "cpucores", "sysbenchsingle",
-                                         "sysbenchmulti", "netdownload", "netupload", "overlay", "incoming",
-                                         "gpucount", "gpumem", "ethhashrate"], task_config)
+                                         "identity", "resources"], task_config)
             temp_bids[task_config["tag"]] = template_bid(task_config)
             nodes_to_exclude = [int(n) for n in
                                 task_config["nodes_to_exclude"].split(',')] if "nodes_to_exclude" in task_config else []
@@ -114,8 +111,7 @@ class Config(object):
     def load_cfg(filename='config.yaml', folder=config_folder):
         path = join(folder, filename)
         if os.path.exists(path):
-            p = Path(path)
-            yaml_ = YAML(typ='safe')
-            return yaml_.load(p)
+            with open(path) as f:
+                return yaml.safe_load(f)
         else:
             raise Exception("File {} not found".format(filename))

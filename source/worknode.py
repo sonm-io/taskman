@@ -74,12 +74,10 @@ class WorkNode:
 
     def create_bid_yaml(self):
         self.logger.info("Creating order file for Node {}".format(self.node_tag))
-        self.bid_ = template_bid(self.config, self.node_tag, self.config["counterparty"])
 
         price_, predicted_, predicted_w_coeff_ = self.get_price()
         self.price = self.format_price(price_, readable=True)
-        self.bid_["price"] = self.format_price(price_)
-
+        self.bid_ = template_bid(self.config, self.node_tag, self.config["counterparty"], self.format_price(price_))
         self.logger.info("Predicted price for Node {} is {:.4f} USD/h, with coefficient {:.4f} USD/h, order price is {}"
                          .format(self.node_tag, predicted_, predicted_w_coeff_, self.price))
         dump_file(self.bid_, self.bid_file)

@@ -8,7 +8,6 @@ from enum import Enum
 
 import ruamel.yaml
 from jinja2 import Template
-
 from ruamel import yaml
 from tabulate import tabulate
 
@@ -117,40 +116,30 @@ def print_state():
                          tablefmt="grid"))
 
 
-def template_bid(config, tag="", counterparty=None):
-    gpumem = config["gpumem"]
-    ethhashrate = config["ethhashrate"]
-    if config["gpucount"] == 0:
-        gpumem = 0
-        ethhashrate = 0
-    bid_template = {
+def template_bid(config: dict, tag="", counterparty=None, price="0USD/h"):
+    bid_ = {
         "duration": config["duration"],
-        "price": "0USD/h",
+        "price": price,
         "identity": config["identity"],
         "tag": tag,
-        "resources": {
-            "network": {
-                "overlay": config["overlay"],
-                "outbound": True,
-                "incoming": config["incoming"]
-            },
-            "benchmarks": {
-                "ram-size": config["ramsize"] * 1024 * 1024,
-                "storage-size": config["storagesize"] * 1024 * 1024 * 1024,
-                "cpu-cores": config["cpucores"],
-                "cpu-sysbench-single": config["sysbenchsingle"],
-                "cpu-sysbench-multi": config["sysbenchmulti"],
-                "net-download": config["netdownload"] * 1024 * 1024,
-                "net-upload": config["netupload"] * 1024 * 1024,
-                "gpu-count": config["gpucount"],
-                "gpu-mem": gpumem * 1024 * 1024,
-                "gpu-eth-hashrate": ethhashrate * 1000000
-            }
-        }
+        "resources": config["resources"]
     }
+    benchmarks_ = config["resources"]["benchmarks"]
+    if "ram-size" in benchmarks_:
+        bid_["resources"]["benchmarks"]["ram-size"] = int(benchmarks_["ram-size"]) * 1024 * 1024
+    if "storage-size" in benchmarks_:
+        bid_["resources"]["benchmarks"]["storage-size"] = int(benchmarks_["storage-size"]) * 1024 * 1024 * 1024
+    if "net-download" in benchmarks_:
+        bid_["resources"]["benchmarks"]["net-download"] = int(benchmarks_["net-download"]) * 1024 * 1024
+    if "net-upload" in benchmarks_:
+        bid_["resources"]["benchmarks"]["net-upload"] = int(benchmarks_["net-upload"]) * 1024 * 1024
+    if "gpu-mem" in benchmarks_:
+        bid_["resources"]["benchmarks"]["gpu-mem"] = int(benchmarks_["gpu-mem"]) * 1024 * 1024
+    if "gpu-eth-hashrate" in benchmarks_:
+        bid_["resources"]["benchmarks"]["gpu-eth-hashrate"] = int(benchmarks_["gpu-eth-hashrate"]) * 1000000
     if counterparty:
-        bid_template["counterparty"] = counterparty
-    return bid_template
+        bid_["counterparty"] = counterparty
+    return bid_
 
 
 def dump_file(data, filename):

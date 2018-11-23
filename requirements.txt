@@ -1,3 +1,4 @@
+PyYAML
 flask
 flask_table
 flask_bootstrap
