@@ -1,11 +1,13 @@
 import logging
+import socket
 from genericpath import isfile
 from os import listdir
 from os.path import join
+from urllib.parse import urlparse
 
+from source.config import Config
 from source.sonmapi import SonmApi
 from source.utils import Nodes
-from source.config import Config
 from source.worknode import WorkNode, State
 
 logger = logging.getLogger("monitor")
@@ -76,5 +78,18 @@ def init_sonm_api():
         raise Exception("Key storage doesn't contain any files")
     key_password = Config.base_config["ethereum"]["password"]
     node_addr = Config.base_config["node_address"]
-    sonm_api = SonmApi(join(key_file_path, keys[0]), key_password, node_addr, timeout)
-    return sonm_api
+    if check_endpoint(node_addr):
+        sonm_api = SonmApi(join(key_file_path, keys[0]), key_password, node_addr, timeout)
+        return sonm_api
+    else:
+        raise Exception("Check sonm node, or configuration. Sonm node isn't reachable at address " + node_addr)
+
+
+def check_endpoint(node_addr):
+    url = urlparse(node_addr)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    result = sock.connect_ex((url.hostname, url.port))
+    if result == 0:
+        return True
+    else:
+        return False
