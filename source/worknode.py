@@ -36,6 +36,7 @@ class WorkNode:
         self.logger = logging.getLogger("monitor")
         self.node_tag = node_tag
         self.tag = self.node_tag.split('_')[0]
+        self.node_num = self.node_tag.split('_')[1]
         self.config = Config.get_node_config(self.node_tag)
         self.status = status
         self.sonm_api = sonm_api
@@ -66,7 +67,7 @@ class WorkNode:
     def create_task_yaml(self):
         self.logger.info("Creating task file for Node {}".format(self.node_tag))
         file_ = join(Config.config_folder, self.config["template_file"])
-        kwargs = {'node_tag': self.node_tag}
+        kwargs = {'node_tag': self.node_tag, 'node_num': self.node_num}
         data = template_task(file_, kwargs)
         dump_file(data, self.task_file)
         with open(self.task_file) as f:
