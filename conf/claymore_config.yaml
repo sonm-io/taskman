@@ -52,3 +52,5 @@ gpucount: 1
 gpumem: 2900
 # MH/s, integers only
 ethhashrate: 0
+#ZCASH mining hashrate Sol/s, integers only
+cashhashrate: 0

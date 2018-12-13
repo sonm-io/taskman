@@ -73,7 +73,7 @@ class Config(object):
                                          "task_start_timeout", "template_file", "duration", "counterparty",
                                          "identity", "ramsize", "storagesize", "cpucores", "sysbenchsingle",
                                          "sysbenchmulti", "netdownload", "netupload", "overlay", "incoming",
-                                         "gpucount", "gpumem", "ethhashrate"], task_config)
+                                         "gpucount", "gpumem", "ethhashrate","cashhashrate"], task_config)
             temp_bids[task_config["tag"]] = template_bid(task_config)
             nodes_to_exclude = [int(n) for n in
                                 task_config["nodes_to_exclude"].split(',')] if "nodes_to_exclude" in task_config else []

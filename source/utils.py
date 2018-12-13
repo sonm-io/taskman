@@ -144,7 +144,8 @@ def template_bid(config, tag="", counterparty=None):
                 "net-upload": config["netupload"] * 1024 * 1024,
                 "gpu-count": config["gpucount"],
                 "gpu-mem": gpumem * 1024 * 1024,
-                "gpu-eth-hashrate": ethhashrate * 1000000
+                "gpu-eth-hashrate": ethhashrate * 1000000,
+                "gpu-cash-hashrate": config["cashhashrate"]
             }
         }
     }
